@@ -1,7 +1,7 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import loginIcon from "../assest/signin.gif";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import loginIcon from "../assest/signin.gif";
 
 const Login = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +32,7 @@ const Login = () => {
 						<img src={loginIcon} alt='Login Icon' />
 					</div>
 
-					<form className='pt-6' onSubmit={hanleSubmit}>
+					<form className='pt-6 flex flex-col gap-2' onSubmit={hanleSubmit}>
 						<div className='grid'>
 							<label>Email: </label>
 							<div className='bg-slate-100 p-2'>
@@ -46,7 +46,7 @@ const Login = () => {
 								/>
 							</div>
 						</div>
-						<div>
+						<div className='grid'>
 							<label>Password: </label>
 							<div className='bg-slate-100 p-2 flex'>
 								<input
