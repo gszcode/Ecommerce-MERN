@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import signupIcon from "../assest/signin.gif";
 import { imageTobase64 } from "../utils/imageTobase64";
+import { SummaryApi } from "../common";
 
 const SignUp = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +34,23 @@ const SignUp = () => {
 		});
 	};
 
-	const hanleSubmit = e => {
+	const hanleSubmit = async e => {
 		e.preventDefault();
-		console.log(data);
+
+		if (data.password === data.confirmPassword) {
+			const dataResponse = await fetch(SummaryApi.signUP.url, {
+				method: SummaryApi.signUP.method,
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+
+			const dataApi = await dataResponse.json();
+			console.log(dataApi);
+		} else {
+			console.log("Please check password and confirm");
+		}
 	};
 
 	return (
