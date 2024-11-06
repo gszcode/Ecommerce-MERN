@@ -17,7 +17,7 @@ async function userSignUpCtrl(req, res) {
 
 		if (!hashPassword) throw new Error("Something went wrong");
 
-		const user = { ...req.body, password: hashPassword };
+		const user = { ...req.body, role: "GENERAL", password: hashPassword };
 		const userData = new userModel(user);
 		const saveUser = await userData.save();
 

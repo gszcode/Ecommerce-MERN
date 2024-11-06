@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { SummaryApi } from "../common";
+import { toast } from "react-toastify";
 import loginIcon from "../assest/signin.gif";
 
 const Login = () => {
+	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
 	const [data, setData] = useState({
 		email: "",
@@ -19,9 +23,26 @@ const Login = () => {
 		});
 	};
 
-	const hanleSubmit = e => {
+	const hanleSubmit = async e => {
 		e.preventDefault();
-		console.log(data);
+
+		const dataResponse = await fetch(SummaryApi.signIn.url, {
+			method: SummaryApi.signIn.method,
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+		const dataApi = await dataResponse.json();
+		if (dataApi.success) {
+			toast.success(dataApi.message);
+			navigate("/");
+		}
+		if (dataApi.error) {
+			toast.error(dataApi.message);
+		}
 	};
 
 	return (
