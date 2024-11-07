@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { SummaryApi } from "../common";
 import { toast } from "react-toastify";
 import loginIcon from "../assest/signin.gif";
+import Context from "../context";
 
 const Login = () => {
+	const { getUserDetails } = useContext(Context);
 	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
 	const [data, setData] = useState({
@@ -30,18 +32,17 @@ const Login = () => {
 			method: SummaryApi.signIn.method,
 			credentials: "include",
 			headers: {
-				"Content-Type": "application/json",
+				"content-type": "application/json",
 			},
 			body: JSON.stringify(data),
 		});
 
 		const dataApi = await dataResponse.json();
+		if (dataApi.error) toast.error(dataApi.message);
 		if (dataApi.success) {
 			toast.success(dataApi.message);
 			navigate("/");
-		}
-		if (dataApi.error) {
-			toast.error(dataApi.message);
+			getUserDetails();
 		}
 	};
 

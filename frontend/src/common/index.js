@@ -9,4 +9,12 @@ export const SummaryApi = {
 		method: "POST",
 		url: `${backendDomain}/api/signin`,
 	},
+	userDetails: {
+		method: "GET",
+		url: `${backendDomain}/api/user-details`,
+	},
+	logout: {
+		method: "GET",
+		url: `${backendDomain}/api/logout`,
+	},
 };
