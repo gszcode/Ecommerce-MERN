@@ -1,20 +1,28 @@
-const backendDomain = "http://localhost:8080";
+const backendDomain = "http://localhost:8080/api";
 
 export const SummaryApi = {
 	signUp: {
 		method: "POST",
-		url: `${backendDomain}/api/signup`,
+		url: `${backendDomain}/signup`,
 	},
 	signIn: {
 		method: "POST",
-		url: `${backendDomain}/api/signin`,
+		url: `${backendDomain}/signin`,
 	},
 	userDetails: {
 		method: "GET",
-		url: `${backendDomain}/api/user-details`,
+		url: `${backendDomain}/user-details`,
 	},
 	logout: {
 		method: "GET",
-		url: `${backendDomain}/api/logout`,
+		url: `${backendDomain}/logout`,
+	},
+	allUsers: {
+		method: "GET",
+		url: `${backendDomain}/all-users`,
+	},
+	updateUser: {
+		method: "POST",
+		url: `${backendDomain}/update-user`,
 	},
 };

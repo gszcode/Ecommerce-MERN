@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -14,6 +13,9 @@ import { SummaryApi } from "./common";
 import Context from "./context";
 import { setUserDetails } from "./store/userSlice";
 import { useDispatch } from "react-redux";
+import AdminPanel from "./pages/AdminPanel";
+import AllUser from "./pages/AllUsers";
+import AllProducts from "./pages/AllProducts";
 
 function App() {
 	const dispatch = useDispatch();
@@ -44,6 +46,10 @@ function App() {
 					<Route path='login' element={<Login />} />
 					<Route path='forgot-password' element={<ForgotPassword />} />
 					<Route path='sign-up' element={<SignUp />} />
+					<Route path='admin-panel' element={<AdminPanel />}>
+						<Route path='all-users' element={<AllUser />} />
+						<Route path='all-products' element={<AllProducts />} />
+					</Route>
 				</Routes>
 			</main>
 			<Footer />
