@@ -50,22 +50,24 @@ const Header = () => {
 
 				<div className='flex items-center gap-7'>
 					<div className='relative group flex justify-center'>
-						<div
-							className='text-3xl cursor-pointer relative flex justify-center'
-							onClick={() => setMenuDisplay(!menuDisplay)}
-						>
-							{user?.profilePic ? (
-								<img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
-							) : (
-								<FaRegCircleUser />
-							)}
-						</div>
+						{user?._id && (
+							<div
+								className='text-3xl cursor-pointer relative flex justify-center'
+								onClick={() => setMenuDisplay(!menuDisplay)}
+							>
+								{user?.profilePic ? (
+									<img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
+								) : (
+									<FaRegCircleUser />
+								)}
+							</div>
+						)}
 						{menuDisplay && (
 							<div className='absolute bg-white bottom-0 top-11 h-fit p-4 shadow-lg rounded'>
 								<nav>
 									{user.role === ROLE.ADMIN && (
 										<Link
-											to='admin-panel'
+											to='/admin-panel/all-products'
 											className='whitespace-nowrap hover:bg-slate-100 p-2 hidden md:block'
 											onClick={() => setMenuDisplay(!menuDisplay)}
 										>
