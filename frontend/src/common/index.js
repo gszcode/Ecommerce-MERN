@@ -25,4 +25,16 @@ export const SummaryApi = {
 		method: "POST",
 		url: `${backendDomain}/update-user`,
 	},
+	uploadProduct: {
+		method: "POST",
+		url: `${backendDomain}/upload-product`,
+	},
+	allProducts: {
+		method: "GET",
+		url: `${backendDomain}/all-products`,
+	},
+	updateProduct: {
+		method: "POST",
+		url: `${backendDomain}/update-product`,
+	},
 };

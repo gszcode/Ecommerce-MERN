@@ -1,8 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadProduct from "../components/UploadProduct";
+import { SummaryApi } from "../common";
+import { toast } from "react-toastify";
+import AdminProductCard from "../components/AdminProductCard";
 
 function AllProducts() {
 	const [openUploadProduct, setOpenUploadProduct] = useState(false);
+	const [allProducts, setAllProducts] = useState([]);
+
+	const getAllProducts = async () => {
+		const dataResponse = await fetch(SummaryApi.allProducts.url, {
+			method: SummaryApi.allProducts.method,
+			credentials: "include",
+		});
+
+		const dataApi = await dataResponse.json();
+		if (dataApi.error) toast.error(dataApi.message);
+		if (dataApi.success) setAllProducts(dataApi?.data || []);
+	};
+
+	useEffect(() => {
+		getAllProducts();
+	}, []);
 
 	return (
 		<div>
@@ -16,8 +35,17 @@ function AllProducts() {
 				</button>
 			</div>
 
+			{/* all products */}
+			<div className='flex items-center flex-wrap gap-5 py-4 h-[calc(100vh-190px)] overflow-y-scroll'>
+				{allProducts.map(prod => (
+					<AdminProductCard key={prod._id} data={prod} getProducts={getAllProducts} />
+				))}
+			</div>
+
 			{/* upload product component */}
-			{openUploadProduct && <UploadProduct onclose={() => setOpenUploadProduct(!openUploadProduct)} />}
+			{openUploadProduct && (
+				<UploadProduct onclose={() => setOpenUploadProduct(!openUploadProduct)} getProducts={getAllProducts} />
+			)}
 		</div>
 	);
 }

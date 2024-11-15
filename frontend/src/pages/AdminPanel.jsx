@@ -36,7 +36,7 @@ function AdminPanel() {
 							All Users
 						</Link>
 						<Link to='all-products' className='px-2 py-1 hover:bg-slate-100'>
-							Products
+							All Products
 						</Link>
 					</nav>
 				</div>

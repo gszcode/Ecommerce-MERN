@@ -4,15 +4,17 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { productsCategory } from "../utils/productsCategory";
 import { uploadImage } from "../utils/uploadImage";
+import { SummaryApi } from "../common";
+import { toast } from "react-toastify";
 import DisplayImage from "./DisplayImage";
 
 // eslint-disable-next-line react/prop-types
-function UploadProduct({ onclose }) {
+function UploadProduct({ onclose, getProducts }) {
 	const [openFullScreenImage, setOpenFullScreenImage] = useState(false);
 	const [fullScreenImage, setFullScreenImage] = useState(false);
 	const [data, setData] = useState({
 		productName: "",
-		brandName: "",
+		productBrand: "",
 		category: "",
 		productImage: [],
 		description: "",
@@ -50,7 +52,23 @@ function UploadProduct({ onclose }) {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		console.log(data);
+
+		const dataResponse = await fetch(SummaryApi.uploadProduct.url, {
+			method: SummaryApi.uploadProduct.method,
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+		const dataApi = await dataResponse.json();
+		if (dataApi.error) toast.error(dataApi.message);
+		if (dataApi.success) {
+			toast.success(dataApi.message);
+			onclose();
+			getProducts()
+		}
 	};
 
 	return (
@@ -75,15 +93,15 @@ function UploadProduct({ onclose }) {
 						className='p-2 bg-slate-100 border rounded'
 					/>
 
-					<label htmlFor='brandName' className='mt-3'>
+					<label htmlFor='productBrand' className='mt-3'>
 						Brand Name:
 					</label>
 					<input
 						type='text'
-						id='brandName'
-						name='brandName'
+						id='productBrand'
+						name='productBrand'
 						placeholder='Enter product brand'
-						value={data.brandName}
+						value={data.productBrand}
 						onChange={handleOnChange}
 						className='p-2 bg-slate-100 border rounded'
 					/>
