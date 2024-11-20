@@ -11,7 +11,7 @@ import { setUserDetails } from "../store/userSlice";
 import { useState } from "react";
 import { ROLE } from "../common/role";
 
-const Header = () => {
+function Header() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { user } = useSelector(state => state.user);
@@ -101,6 +101,6 @@ const Header = () => {
 			</div>
 		</header>
 	);
-};
+}
 
 export default Header;

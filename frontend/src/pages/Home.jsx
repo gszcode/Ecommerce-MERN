@@ -1,7 +1,11 @@
+import BannerProduct from "../components/BannerProduct";
+import CategoryList from "../components/CategoryList";
+
 const Home = () => {
 	return (
 		<div>
-			<h1>Home Page</h1>
+			<CategoryList />
+			<BannerProduct />
 		</div>
 	);
 };

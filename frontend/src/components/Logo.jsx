@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const Logo = ({ w, h }) => {
+function Logo({ w, h }) {
 	return (
 		<svg width={w} height={h} viewBox='0 0 370.16679528778167 155.08501865265873' className='css-1j8o68f'>
 			<defs id='SvgjsDefs1029'></defs>
@@ -39,6 +39,6 @@ const Logo = ({ w, h }) => {
 			</g>
 		</svg>
 	);
-};
+}
 
 export default Logo;
