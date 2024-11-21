@@ -31,7 +31,6 @@ function ChangeUserRole({ userId, name, email, role, onclose, getUsers }) {
 			onclose();
 			getUsers()
 		}
-		console.log({ dataApi });
 	};
 
 	return (

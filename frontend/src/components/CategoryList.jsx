@@ -1,30 +1,25 @@
 import { useEffect, useState } from "react";
 import { SummaryApi } from "../common";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-function CategoryList() {
+const CategoryList = () => {
 	const [categoryProduct, setCategoryProduct] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	const categoryLoading = new Array(13).fill(null);
 
-	const getCategoryProduct = async () => {
+	console.log(categoryProduct);
+
+	const fetchCategoryProduct = async () => {
 		setLoading(true);
-		const dataResponse = await fetch(SummaryApi.categoryProduct.url, {
-			method: SummaryApi.categoryProduct.method,
-			credentials: "include",
-		});
-
-		const dataApi = await dataResponse.json();
+		const response = await fetch(SummaryApi.categoriesProduct.url);
+		const dataResponse = await response.json();
 		setLoading(false);
-
-		if (dataApi.success) setCategoryProduct(dataApi.data);
-		if (dataApi.error) toast.error(dataApi.message);
+		setCategoryProduct(dataResponse.data);
 	};
 
 	useEffect(() => {
-		getCategoryProduct();
+		fetchCategoryProduct();
 	}, []);
 
 	return (
@@ -37,21 +32,25 @@ function CategoryList() {
 								key={"categoryLoading" + index}
 							></div>
 					  ))
-					: categoryProduct.map(prod => (
-							<Link to={`/product-category/${prod?.category}`} key={prod._id} className='cursor-pointer'>
+					: categoryProduct.map(product => (
+							<Link
+								to={"/product-category?category=" + product?.category}
+								className='cursor-pointer'
+								key={product?.category}
+							>
 								<div className='w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center'>
 									<img
-										src={prod?.productImage[0]}
-										alt={prod?.categoty}
+										src={product?.productImage[0]}
+										alt={product?.category}
 										className='h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all'
 									/>
 								</div>
-								<p className='text-center text-sm md:text-base capitalize'>{prod?.category}</p>
+								<p className='text-center text-sm md:text-base capitalize'>{product?.category}</p>
 							</Link>
 					  ))}
 			</div>
 		</div>
 	);
-}
+};
 
 export default CategoryList;
