@@ -3,6 +3,7 @@ import { fetchCategoryWiseProduct } from "../utils/fetchCategoryWiseProduct";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { displayARGCurrency } from "../utils/displayCurrency";
+import { addToCart } from "../utils/addToCart";
 
 // eslint-disable-next-line react/prop-types
 const HorizontalCardProduct = ({ category, heading }) => {
@@ -79,7 +80,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
 					: data.map(prod => (
 							<Link
 								key={prod?._id}
-								to={"product/" + prod?._id}
+								to={`product/${prod?._id}`}
 								className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex'
 							>
 								<div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
@@ -96,7 +97,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
 									</div>
 									<button
 										className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full'
-										// onClick={e => handleAddToCart(e, prod?._id)}
+										onClick={e => addToCart(e, prod?._id)}
 									>
 										Add to Cart
 									</button>
