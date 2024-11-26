@@ -43,7 +43,7 @@ function UploadProduct({ onclose, getProducts }) {
 		});
 	};
 
-	const handleDeleteProductImage = image => {
+	const handleDeleteProductImage = image => { 
 		setData({
 			...data,
 			productImage: data.productImage.filter(img => img !== image),
