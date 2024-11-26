@@ -18,6 +18,7 @@ import AdminPanel from "./pages/AdminPanel";
 import AllUser from "./pages/AllUsers";
 import AllProducts from "./pages/AllProducts";
 import CategoryProduct from "./pages/CategoryProduct";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
 	const dispatch = useDispatch();
@@ -42,13 +43,14 @@ function App() {
 		<Context.Provider value={{ getUserDetails }}>
 			<ToastContainer />
 			<Header />
-			<main className='min-h-[calc(100vh-120px)] pt-6'>
+			<main className='min-h-[calc(100vh-120px)] pt-16'>
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='login' element={<Login />} />
 					<Route path='forgot-password' element={<ForgotPassword />} />
 					<Route path='sign-up' element={<SignUp />} />
 					<Route path='product-category/:categoryName' element={<CategoryProduct />} />
+					<Route path='product/:id' element={<ProductDetails />} />
 					<Route path='admin-panel' element={<AdminPanel />}>
 						<Route path='all-users' element={<AllUser />} />
 						<Route path='all-products' element={<AllProducts />} />
