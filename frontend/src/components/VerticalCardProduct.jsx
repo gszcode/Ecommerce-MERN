@@ -3,6 +3,7 @@ import { fetchCategoryWiseProduct } from "../utils/fetchCategoryWiseProduct";
 import { displayARGCurrency } from "../utils/displayCurrency";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { addToCart } from "../utils/addToCart";
 
 // eslint-disable-next-line react/prop-types
 const VerticalCardProduct = ({ category, heading }) => {
@@ -23,7 +24,6 @@ const VerticalCardProduct = ({ category, heading }) => {
 		const categoryProduct = await fetchCategoryWiseProduct(category);
 		setLoading(false);
 
-		console.log("horizontal data", categoryProduct.data);
 		setData(categoryProduct?.data);
 	};
 
@@ -100,7 +100,7 @@ const VerticalCardProduct = ({ category, heading }) => {
 									</div>
 									<button
 										className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full'
-										// onClick={e => handleAddToCart(e, product?._id)}
+										onClick={e => addToCart(e, product?._id)}
 									>
 										Add to Cart
 									</button>
