@@ -45,4 +45,8 @@ export const SummaryApi = {
 		method: "POST",
 		url: `${backendDomain}/category-product`,
 	},
+	productDetails: {
+		method: "POST",
+		url: `${backendDomain}/product-details`,
+	},
 };
