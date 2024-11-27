@@ -49,4 +49,12 @@ export const SummaryApi = {
 		method: "POST",
 		url: `${backendDomain}/product-details`,
 	},
+	addToCart: {
+		method: "POST",
+		url: `${backendDomain}/add-cart`,
+	},
+	countCart: {
+		method: "GET",
+		url: `${backendDomain}/count-cart`,
+	},
 };
