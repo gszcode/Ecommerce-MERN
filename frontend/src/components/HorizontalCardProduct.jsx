@@ -1,23 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { fetchCategoryWiseProduct } from "../utils/fetchCategoryWiseProduct";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { displayARGCurrency } from "../utils/displayCurrency";
 import { addToCart } from "../utils/addToCart";
+import Context from "../context";
 
 // eslint-disable-next-line react/prop-types
 const HorizontalCardProduct = ({ category, heading }) => {
+	const { getCountCart } = useContext(Context);
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const loadingList = new Array(13).fill(null);
 	const scrollElement = useRef();
 
-	// const { fetchUserAddToCart } = useContext(Context);
-
-	// const handleAddToCart = async (e, id) => {
-	// 	await addToCart(e, id);
-	// 	fetchUserAddToCart();
-	// };
+	const handleAddToCart = async (e, id) => {
+		await addToCart(e, id);
+		getCountCart();
+	};
 
 	const fetchDataCategory = async () => {
 		setLoading(true);
@@ -97,7 +97,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
 									</div>
 									<button
 										className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full'
-										onClick={e => addToCart(e, prod?._id)}
+										onClick={e => handleAddToCart(e, prod?._id)}
 									>
 										Add to Cart
 									</button>
