@@ -8,7 +8,7 @@ import loginIcon from "../assest/signin.gif";
 import Context from "../context";
 
 const Login = () => {
-	const { getUserDetails } = useContext(Context);
+	const { getUserDetails, getCountCart } = useContext(Context);
 	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
 	const [data, setData] = useState({
@@ -43,6 +43,7 @@ const Login = () => {
 			toast.success(dataApi.message);
 			navigate("/");
 			getUserDetails();
+			getCountCart();
 		}
 	};
 
