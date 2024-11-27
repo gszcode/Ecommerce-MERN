@@ -11,12 +11,11 @@ function CategroyWiseProductDisplay({ category, heading }) {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const loadingList = new Array(13).fill(null);
-
-	const { fetchUserAddToCart } = useContext(Context);
+	const { getCountCart } = useContext(Context);
 
 	const handleAddToCart = async (e, id) => {
 		await addToCart(e, id);
-		fetchUserAddToCart();
+		getCountCart();
 	};
 
 	const fetchData = async () => {
@@ -82,7 +81,7 @@ function CategroyWiseProductDisplay({ category, heading }) {
 									>
 										Add to Cart
 									</button>
-								</div>
+								</div> 
 							</Link>
 					  ))}
 			</div>

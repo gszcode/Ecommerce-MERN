@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import ForgotPassword from "./pages/ForgotPassword";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SummaryApi } from "./common";
 import Context from "./context";
 import { setUserDetails } from "./store/userSlice";
@@ -22,6 +22,7 @@ import ProductDetails from "./pages/ProductDetails";
 
 function App() {
 	const dispatch = useDispatch();
+	const [cartProductCount, setCartProductCount] = useState(0);
 
 	const getUserDetails = async () => {
 		const dataResponse = await fetch(SummaryApi.userDetails.url, {
@@ -35,13 +36,24 @@ function App() {
 		}
 	};
 
+	const getCountCart = async () => {
+		const dataResponse = await fetch(SummaryApi.countCart.url, {
+			method: SummaryApi.countCart.method,
+			credentials: "include",
+		});
+
+		const dataApi = await dataResponse.json();
+		setCartProductCount(dataApi.data.count);
+	};
+
 	useEffect(() => {
 		getUserDetails();
+		getCountCart();
 	}, []);
 
 	return (
-		<Context.Provider value={{ getUserDetails }}>
-			<ToastContainer />
+		<Context.Provider value={{ getUserDetails, cartProductCount, getCountCart }}>
+			<ToastContainer position='top-center' />
 			<Header />
 			<main className='min-h-[calc(100vh-120px)] pt-16'>
 				<Routes>
