@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8080;
 
 app.use(
 	cors({
-		origin: process.env.FRONTEND_URL,
+		origin: ["https://shop-gsz.netlify.app", process.env.FRONTEND_URL],
 		credentials: true,
 	})
 );
