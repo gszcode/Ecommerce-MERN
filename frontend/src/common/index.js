@@ -57,4 +57,24 @@ export const SummaryApi = {
 		method: "GET",
 		url: `${backendDomain}/count-cart`,
 	},
+	viewProductCart: {
+		method: "GET",
+		url: `${backendDomain}/view-cart`,
+	},
+	updateProductCart: {
+		method: "POST",
+		url: `${backendDomain}/update-cart-product`,
+	},
+	deleteCartProduct: {
+		method: "POST",
+		url: `${backendDomain}/delete-cart-product`,
+	},
+	searchProduct: {
+		method: "GET",
+		url: `${backendDomain}/search`,
+	},
+	filterProduct: {
+		method: "POST",
+		url: `${backendDomain}/filter-product`,
+	},
 };
