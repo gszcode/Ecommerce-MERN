@@ -1,4 +1,5 @@
-const backendDomain = "http://localhost:8080/api";
+// const backendDomain = "http://localhost:8080/api";
+const backendDomain = "https://ecommerce-shop-nueg.onrender.com/api";
 
 export const SummaryApi = {
 	signUp: {
