@@ -19,6 +19,8 @@ import AllUser from "./pages/AllUsers";
 import AllProducts from "./pages/AllProducts";
 import CategoryProduct from "./pages/CategoryProduct";
 import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
+import SearchProduct from "./pages/SearchProduct";
 
 function App() {
 	const dispatch = useDispatch();
@@ -61,8 +63,10 @@ function App() {
 					<Route path='login' element={<Login />} />
 					<Route path='forgot-password' element={<ForgotPassword />} />
 					<Route path='sign-up' element={<SignUp />} />
-					<Route path='product-category/:categoryName' element={<CategoryProduct />} />
+					<Route path='product-category' element={<CategoryProduct />} />
 					<Route path='product/:id' element={<ProductDetails />} />
+					<Route path='cart' element={<Cart />} />
+					<Route path='search' element={<SearchProduct />} />
 					<Route path='admin-panel' element={<AdminPanel />}>
 						<Route path='all-users' element={<AllUser />} />
 						<Route path='all-products' element={<AllProducts />} />

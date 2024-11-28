@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { GrSearch } from "react-icons/gr";
-import Logo from "./Logo";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -10,14 +9,19 @@ import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 import { useContext, useState } from "react";
 import { ROLE } from "../common/role";
+import logo from "../assest/logo_gszcode.png";
 import Context from "../context";
 
 function Header() {
+	const { user } = useSelector(state => state.user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { user } = useSelector(state => state.user);
-	const [menuDisplay, setMenuDisplay] = useState(false);
 	const context = useContext(Context);
+	const searchInput = useLocation();
+	const URLSearch = new URLSearchParams(searchInput?.search);
+	const searchQuery = URLSearch.getAll("q");
+	const [menuDisplay, setMenuDisplay] = useState(false);
+	const [search, setSearch] = useState(searchQuery);
 
 	const handleLogout = async () => {
 		const responseData = await fetch(SummaryApi.logout.url, {
@@ -34,17 +38,31 @@ function Header() {
 		}
 	};
 
+	const handleSearch = e => {
+		const { value } = e.target;
+		setSearch(value);
+
+		if (value) return navigate(`/search?q=${value}`);
+		else return navigate("/search");
+	};
+
 	return (
 		<header className='h-16 shadow-md bg-white fixed w-full z-40'>
 			<div className='h-full container mx-auto flex items-center px-4 justify-between'>
 				<div className=''>
 					<Link to='/'>
-						<Logo w={90} h={50} />
+						<img src={logo} alt='Logo' className='w-44 h-12 bg-white' />
 					</Link>
 				</div>
 
 				<div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-					<input type='search' placeholder='search product here...' className='w-full outline-none' />
+					<input
+						type='search'
+						placeholder='search product here...'
+						className='w-full outline-none'
+						onChange={handleSearch}
+						value={search}
+					/>
 					<div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
 						<GrSearch />
 					</div>
@@ -81,14 +99,14 @@ function Header() {
 						)}
 					</div>
 					{user?._id && (
-						<div className='text-2xl relative'>
+						<Link to='/cart' className='text-2xl relative'>
 							<span>
 								<FaShoppingCart />
 							</span>
 							<div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
 								<p className='text-sm'>{context?.cartProductCount}</p>
 							</div>
-						</div>
+						</Link>
 					)}
 					<div>
 						{user?._id ? (
