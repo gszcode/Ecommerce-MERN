@@ -7,10 +7,17 @@ const router = require("./routes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+const allowedOrigins = ["https://shop-gsz.netlify.app", process.env.FRONTEND_URL];
 
 app.use(
 	cors({
-		origin: ["https://shop-gsz.netlify.app", process.env.FRONTEND_URL],
+		origin: (origin, callback) => {
+			if (allowedOrigins.includes(origin) || !origin) {
+				callback(null, true);
+			} else {
+				callback(new Error("Not allowed by CORS"));
+			}
+		},
 		credentials: true,
 	})
 );
